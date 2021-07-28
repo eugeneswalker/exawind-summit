@@ -9,8 +9,8 @@ MPI_CONTAINER=${MPI_ROOT}
 CUDA_HOST=/sw/summit/cuda/10.2.89
 CUDA_CONTAINER=/sw/summit/cuda/10.2.89
 
-SIMG=${HOME}/exawind-summit-2021-07-27.sif
-RUNDIR=${MEMBERWORK}/gen010/exawind-run
+SIMG=${SIMG:-${HOME}/exawind-summit-2021-07-27.sif}
+RUNDIR=${RUNDIR:-${MEMBERWORK}/gen010/exawind-run}
 AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=200 200 200 geometry.prob_hi=156.25 156.25 156.25"
 
 set -x
