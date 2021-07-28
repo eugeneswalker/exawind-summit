@@ -1,4 +1,10 @@
-## OLCF Summit Dual-Node GPU Example
+## ExaWind Containerized GPU Examples
+
+**Contents**
+1. OLCF Summit Dual-Node GPU Example
+2. UO Cyclops Single-Node GPU Example
+
+### 1. OLCF Summit Dual-Node GPU Example
 
 1. Connect to Summit and change directory to $HOME
 ```
@@ -65,7 +71,7 @@ Initializing boundary conditions for velocity_mueff
 ...
 ```
 
-## UO Cyclops Single-Node GPU Example
+### 2. UO Cyclops Single-Node GPU Example
 
 1. Connect to Cyclops and change directory to $HOME
 ```
