@@ -67,4 +67,53 @@ Initializing boundary conditions for velocity_mueff
 
 ## UO Cyclops Single-Node GPU Example
 
-... TBC
+1. Connect to Cyclops and change directory to $HOME
+```
+$> ssh cyclops
+$cyclops:~/> cd
+```
+
+2. Fetch the ExaWind Singularity image
+```
+$cyclops:~/> wget https://cache.e4s.io/exawind-summit-2021-07-27.sif
+```
+
+3. Clone this repository
+```
+$cyclops:~/> git clone https://github.com/eugeneswalker/exawind-summit
+$cyclops:~/> cd exawind-summit
+```
+
+4. Set environment variables $RUNDIR and $SIMG. $RUNDIR must be a path that is writeable.
+```
+$cyclops:~/exawind-summit> export RUNDIR=<writeable-path>
+$cyclops:~/exawind-summit> export SIMG=$HOME/exawind-summit-2021-07-27.sif
+$cyclops:~/exawind-summit> ./run-cyclops.sh
+...
+
+==============================================================================
+                AMR-Wind (https://github.com/exawind/amr-wind)
+
+  AMR-Wind version :: 033f21a
+  AMR-Wind Git SHA :: 033f21a1284cde4829a3ef8c4965f5c44b324038
+  AMReX version    :: 21.07-40-g91fa2b7e6ff3
+
+  Exec. time       :: Wed Jul 28 12:59:32 2021
+  Build time       :: Jul 26 2021 13:54:15
+  C++ compiler     :: GNU 7.4.0
+
+  MPI              :: ON    (Num. ranks = 4)
+  GPU              :: ON    (Backend: CUDA)
+  OpenMP           :: OFF
+
+  Enabled third-party libraries:
+    NetCDF    4.7.4
+    HYPRE     2.20.0
+
+           This software is released under the BSD 3-clause license.
+ See https://github.com/Exawind/amr-wind/blob/development/LICENSE for details.
+------------------------------------------------------------------------------
+
+Initializing CUDA...
+...
+```
