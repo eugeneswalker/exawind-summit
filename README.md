@@ -1,4 +1,4 @@
-## OLCF Summit Example
+## OLCF Summit Dual-Node GPU Example
 
 1. Connect to Summit and change directory to $HOME
 ```
@@ -65,6 +65,6 @@ Initializing boundary conditions for velocity_mueff
 ...
 ```
 
-## Run on UO Cyclops
+## UO Cyclops Single-Node GPU Example
 
 ... TBC
