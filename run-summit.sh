@@ -15,12 +15,17 @@ AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=200 200 200 geometry.prob
 
 set -x
 
-jsrun -n8 -r4 -a1 -c1 -g1 \
- singularity run \
-  --nv \
-  --bind ${MEMBERWORK}:${MEMBERWORK} \
-  --bind ${HOME}:${HOME} \
-  --bind ${MPI_HOST}:${MPI_CONTAINER} \
-  --bind ${CUDA_HOST}:${CUDA_CONTAINER} \
-  --env LD_LIBRARY_PATH=${MPI_CONTAINER}/lib/pami_port \
-  ${SIMG} /bin/bash -c "cd ${RUNDIR} && ${AMRWIND_CMD}"
+jsrun \
+ --nrs 8 \
+ --rs_per_host 4 \
+ --tasks-per-rs 1 \
+ --cpus_per_rs 1 \
+ --gpus_per_rs 1 \
+   singularity run \
+     --nv \
+     --bind ${MEMBERWORK}:${MEMBERWORK} \
+     --bind ${HOME}:${HOME} \
+     --bind ${MPI_HOST}:${MPI_CONTAINER} \
+     --bind ${CUDA_HOST}:${CUDA_CONTAINER} \
+     --env LD_LIBRARY_PATH=${MPI_CONTAINER}/lib/pami_port \
+     ${SIMG} /bin/bash -c "cd ${RUNDIR} && ${AMRWIND_CMD}"
