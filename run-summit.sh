@@ -15,7 +15,7 @@ AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=200 200 200 geometry.prob
 
 set -x
 
-jsrun -n4 -a1 -c1 -g1 \
+jsrun -n8 -r4 -a1 -c1 -g1 \
  singularity run \
   --nv \
   --bind ${MEMBERWORK}:${MEMBERWORK} \
