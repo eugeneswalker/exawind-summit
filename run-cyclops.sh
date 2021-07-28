@@ -8,8 +8,8 @@ MPI_CONTAINER=/autofs/nccs-svm1_sw/summit/.swci/1-compute/opt/spack/20180914/lin
 CUDA_HOST=/usr/local/packages/cuda/10.2
 CUDA_CONTAINER=/sw/summit/cuda/10.2.89
 
-SIMG=${HOME}/exawind-summit-2021-07-27.sif
-RUNDIR=$(pwd)
+SIMG=${SIMG:-${HOME}/exawind-summit-2021-07-27.sif}
+RUNDIR=${RUNDIR:-$(pwd)}
 AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=200 200 200 geometry.prob_hi=156.25 156.25 156.25"
 
 set -x
