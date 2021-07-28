@@ -1,4 +1,4 @@
-## Run on Summit
+## OLCF Summit Example
 
 1. Connect to Summit and change directory to $HOME
 ```
