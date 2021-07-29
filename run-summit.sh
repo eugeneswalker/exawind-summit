@@ -23,7 +23,7 @@ jsrun \
  --gpus_per_rs 1 \
    singularity run \
      --nv \
-     --bind ${MEMBERWORK}:${MEMBERWORK} \
+     --bind ${MEMBERWORK}/gen010/exawind-run:${MEMBERWORK}/gen010/exawind-run \
      --bind ${HOME}:${HOME} \
      --bind ${MPI_HOST}:${MPI_CONTAINER} \
      --bind ${CUDA_HOST}:${CUDA_CONTAINER} \
