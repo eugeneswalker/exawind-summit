@@ -16,8 +16,8 @@ AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=200 200 200 geometry.prob
 set -x
 
 jsrun \
- --nrs 8 \
- --rs_per_host 4 \
+ --nrs 12 \
+ --rs_per_host 6 \
  --tasks_per_rs 1 \
  --cpu_per_rs 1 \
  --gpu_per_rs 1 \
