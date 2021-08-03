@@ -11,7 +11,7 @@ CUDA_CONTAINER=/sw/summit/cuda/10.2.89
 
 SIMG=${SIMG:-${HOME}/exawind-summit-2021-07-27.sif}
 RUNDIR=${RUNDIR:-${MEMBERWORK}/gen010/exawind-run}
-AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=384 512 512 geometry.prob_hi=300.0 400.0 400.0"
+AMRWIND_CMD="amr_wind $(pwd)/amr-wind.input amr.n_cell=384 512 512 geometry.prob_hi=300.0 400.0 400.0 time.max_step=10"
 
 set -x
 
