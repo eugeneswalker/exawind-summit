@@ -1,0 +1,8 @@
+Bootstrap: docker-daemon
+From: docker.io/ecpe4s/exawind-summit:2021-07-27-rc1
+
+%runscript
+  . /exawind/spack/share/spack/setup-env.sh
+  spack load gcc
+  spack load amr-wind
+  exec "$@"
