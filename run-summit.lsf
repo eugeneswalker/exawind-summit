@@ -1,0 +1,47 @@
+#!/bin/bash
+#BSUB -P GEN010
+#BSUB -W 0:15
+#BSUB -nnodes 1024
+#BSUB -J AmrWindGPU
+#BSUB -o AmrWindGPU.%J
+#BUSB -e AmrWindGPU.%J
+
+module load gcc/7.4.0
+module unload darshan-runtime
+
+MPI_HOST=${MPI_ROOT}
+CUDA_HOST=/sw/summit/cuda/10.2.89
+RUNDIR="${MEMBERWORK}/gen010/exawind-run"
+SIMG="${RUNDIR}/exawind-summit-2021-07-27.sif"
+AMRWIND_CMD="amr_wind ${RUNDIR}/amr-wind.input amr.n_cell=12288 8192 512 geometry.prob_hi=9600.0 6400.0 400.0 time.max_step=10"
+
+jsrun \
+ --nrs 6144 \
+ --rs_per_host 6 \
+ --tasks_per_rs 1 \
+ --cpu_per_rs 1 \
+ --gpu_per_rs 1 \
+ --latency_priority CPU-CPU \
+ --launch_distribution packed \
+ --bind packed:1 \
+   singularity run \
+    --nv \
+    --contain \
+    --bind /tmp \
+    --bind /dev \
+    --bind /etc/localtime \
+    --bind /etc/hosts \
+    --bind /autofs/nccs-svm1_sw \
+    --bind /ccs/sw \
+    --bind /sw \
+    --bind /autofs/nccs-svm1_proj \
+    --bind /ccs/proj \
+    --bind /sw/summitdev/singularity/98-OLCF.sh:/.singularity.d/env/98-OLCF.sh \
+    --bind /etc/libibverbs.d \
+    --bind /lib64:/host_lib64 \
+    --bind ${HOME} \
+    --bind ${MPI_HOST} \
+    --bind ${CUDA_HOST} \
+    --bind ${RUNDIR} \
+    --env LD_LIBRARY_PATH=${MPI_HOST}/lib/pami_port \
+    ${SIMG} /bin/bash -c "cd ${RUNDIR} && ${AMRWIND_CMD}"
