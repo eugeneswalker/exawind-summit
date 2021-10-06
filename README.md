@@ -56,7 +56,7 @@ $> git clone https://github.com/eugeneswalker/exawind-summit
 $> cd exawind-summit
 ```
 
-2. Run the Docker build script
+2. Run the Singularity build script
 ```
 $exawind-summit> ./build-singularity.sh
 ```
