@@ -18,12 +18,13 @@ CUDA_HOST=/sw/summit/cuda/11.3.1
 CUDA_CONTAINER=/sw/summit/cuda/11.3.1
 
 AMRWIND_CMD_1="amr_wind $(pwd)/inputs/amr-wind.input amr.n_cell=384 512 512 geometry.prob_hi=300.0 400.0 400.0 time.max_step=10"
+AMRWIND_CMD_2="amr_wind $(pwd)/inputs/amr-wind.input amr.n_cell=384 512 512 geometry.prob_hi=300.0 400.0 400.0 time.max_step=10"
 AMRWIND_CMD_1024="amr_wind $(pwd)/inputs/amr-wind.input amr.n_cell=12288 8192 512 geometry.prob_hi=9600.0 6400.0 400.0 time.max_step=10"
 
 set -x
 
 jsrun \
- --nrs 6 \
+ --nrs 12 \
  --rs_per_host 6 \
  --tasks_per_rs 1 \
  --cpu_per_rs 1 \
@@ -48,4 +49,4 @@ jsrun \
     --bind ${MPI_HOST} \
     --bind ${CUDA_HOST} \
     --env LD_LIBRARY_PATH=${MPI_CONTAINER}/lib/pami_port \
-    ${SIMG} /bin/bash -c "cd ${RUNDIR} && ${AMRWIND_CMD_1}"
+    ${SIMG} /bin/bash -c "cd ${RUNDIR} && ${AMRWIND_CMD_2}"
