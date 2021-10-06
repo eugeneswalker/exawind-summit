@@ -22,8 +22,6 @@ MPI_CONTAINER=${MPI_ROOT}
 CUDA_HOST=/sw/summit/cuda/11.3.1
 CUDA_CONTAINER=/sw/summit/cuda/11.3.1
 
-AMRWIND_CMD_1="amr_wind $(pwd)/inputs/amr-wind.input amr.n_cell=384 512 512 geometry.prob_hi=300.0 400.0 400.0 time.max_step=10"
-AMRWIND_CMD_1024="amr_wind $(pwd)/inputs/amr-wind.input amr.n_cell=12288 8192 512 geometry.prob_hi=9600.0 6400.0 400.0 time.max_step=10"
 NALUWIND_CMD_1="naluX -i ablNeutralNGPTrilinos.yaml"
 
 set -x
