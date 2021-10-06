@@ -1,11 +1,12 @@
-## Amr-Wind Containerized GPU Examples for OLCF Summit
+## ExaWind Containerized Examples for OLCF Summit
 
 **Table of Contents**
-1. Running the Dual-node GPU Example on OLCF Summit
-2. Building the Docker image
-3. Building the Singularity image
+1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit
+2. Running the Single-node Nalu-Wind CPU Example on OLCF Summit
+3. Building the Docker image
+4. Building the Singularity image
 
-### 1. Running the Dual-Node GPU Example on OLCF Summit
+### 1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit
 
 1. Clone this repo
 ```
@@ -36,7 +37,29 @@
 [<user>@login4.summit exawind-summit] bsub run-amrwind-summit.lsf
 ```
 
-### 2. Building the Docker image
+### 2. Running the Single-node Nalu-Wind CPU Example on OLCF Summit
+
+1. Clone this repo
+```
+[<user>@login4.summit ~] git clone https://github.com/eugeneswalker/exawind-summit
+[<user>@login4.summit ~] cd exawind-summit
+```
+
+2. Decide where you want output files to go. Choose a path on a filesystem writable from compute nodes
+```
+[<user>@login4.summit exawind-summit] export RUNDIR=$MEMBERWORK/gen010/exawind-run
+```
+
+3. Run the example
+
+* Interactive
+```
+[<user>@login4.summit exawind-summit] bsub -Is -P <PROJECT_ID>  -W 2:00 -nnodes 1 /bin/bash
+[<user>@login4.summit exawind-summit] ./run-naluwind-summit.sh
+...
+```
+
+### 3. Building the Docker image
 
 1. Clone this repo
 ```
@@ -49,7 +72,7 @@ $> cd exawind-summit
 $exawind-summit> ./build-docker.sh
 ```
 
-### 3. Build the Singularity image
+### 4. Build the Singularity image
 1. Clone this repo
 ```
 $> git clone https://github.com/eugeneswalker/exawind-summit
