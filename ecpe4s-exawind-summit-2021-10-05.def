@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: ecpe4s/exawind-summit:2021-10-05
+
+%runscript
+  . /exawind/spack/share/spack/setup-env.sh
+  spack load amr-wind
+  spack load nalu-wind
+  exec "$@"
