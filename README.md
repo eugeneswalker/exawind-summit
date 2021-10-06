@@ -1,7 +1,7 @@
 ## ExaWind Containerized Examples for OLCF Summit
 
 **Table of Contents**
-1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit
+1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit (NVIDIA V100)
 2. Running the Single-node Nalu-Wind CPU Example on OLCF Summit
 3. Building the Docker image
 4. Building the Singularity image
