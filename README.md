@@ -24,7 +24,7 @@
 * Interactive
 ```
 [<user>@login4.summit exawind-summit] bsub -Is -P <PROJECT_ID>  -W 2:00 -nnodes 2 -alloc_flags gpudefault /bin/bash
-[<user>@login4.summit exawind-summit] ./run-amrwind-summit.sh
+bash-4.4$ ./run-amrwind-summit.sh
 ...
 ```
 
@@ -55,7 +55,7 @@
 * Interactive
 ```
 [<user>@login4.summit exawind-summit] bsub -Is -P <PROJECT_ID>  -W 2:00 -nnodes 1 /bin/bash
-[<user>@login4.summit exawind-summit] ./run-naluwind-summit.sh
+bash-4.4$ ./run-naluwind-summit.sh
 ...
 ```
 
