@@ -22,13 +22,17 @@
 
 * Interactive
 ```
-[<user>@login4.summit exawind-summit] bsub -Is -P GEN010  -W 2:00 -nnodes 2 -alloc_flags gpudefault /bin/bash
+[<user>@login4.summit exawind-summit] bsub -Is -P <PROJECT_ID>  -W 2:00 -nnodes 2 -alloc_flags gpudefault /bin/bash
 [<user>@login4.summit exawind-summit] ./run-amrwind-summit.sh
 ...
 ```
 
 * Non-interactive
 ```
+[<user>@login4.summit exawind-summit] head -2 run-amrwind-summit.lsf
+#!/bin/bash
+#BSUB -P GEN010  <-- EDIT THIS LINE, USE YOUR PROJECT CODE
+
 [<user>@login4.summit exawind-summit] bsub run-amrwind-summit.lsf
 ```
 
