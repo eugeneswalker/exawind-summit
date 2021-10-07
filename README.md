@@ -1,4 +1,4 @@
-## ExaWind Containerized Examples for OLCF Summit
+## ExaWind Container for OLCF Summit
 
 **Table of Contents**
 1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit (NVIDIA V100)
