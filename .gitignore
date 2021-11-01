@@ -1,3 +1,5 @@
 post_processing
 *.sif
 output*.txt
+*.tgz
+*.rpm
