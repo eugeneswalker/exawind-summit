@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: ecpe4s/exawind-summit:2021-11-01
+
+%runscript
+  export SPACK_DISABLE_LOCAL_CONFIG=1
+  export SPACK_MANAGER_MACHINE=summit
+  . /exawind/spack/share/spack/setup-env.sh
+  exec "$@"

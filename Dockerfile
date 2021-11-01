@@ -39,32 +39,29 @@ CMD ["/bin/bash"]
 ENV NVIDIA_VISIBLE_DEVICES=all \
     NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
-RUN mkdir -p /gpfs/alpine/scratch/lpeyrala/gen010 \
- && mkdir -p /gpfs/alpine/gen010/scratch/ \
- && ln -s /gpfs/alpine/scratch/lpeyrala/gen010 /gpfs/alpine/gen010/scratch/lpeyrala
+RUN mkdir -p /gpfs/alpine/proj-shared/gen010/exawind \
+ && mkdir -p /gpfs/alpine/gen010 \
+ && ln -s /gpfs/alpine/proj-shared/gen010 /gpfs/alpine/gen010/proj-shared
 
-COPY exawind.tgz /gpfs/alpine/scratch/lpeyrala/gen010/
+COPY exawind-spack-2021-11-01-0802.tgz /gpfs/alpine/proj-shared/gen010/exawind/exawind.tgz
 
-WORKDIR /gpfs/alpine/scratch/lpeyrala/gen010
+WORKDIR /gpfs/alpine/proj-shared/gen010/exawind
 
 RUN tar xzf exawind.tgz \
  && rm -f exawind.tgz \
- && ln -s /gpfs/alpine/scratch/lpeyrala/gen010/exawind /exawind
+ && ln -s /gpfs/alpine/proj-shared/gen010/exawind /exawind
 
 WORKDIR /
 
 RUN . /exawind/spack/share/spack/setup-env.sh \
- && spack mirror rm E4S \
+ && export SPACK_DISABLE_LOCAL_CONFIG=1 \
+ && spack mirror rm E4S || true \
  && spack mirror add E4S https://cache.e4s.io/exawind \
  && spack buildcache keys -it \
- && spack install --cache-only gcc@9.1.0+strip target=power9le \
+ && spack install --cache-only gcc@9.3.0+strip target=power9le \
  && spack mirror rm E4S \
  && spack compiler add $(spack location -i gcc) \
  && spack clean -a
-
-RUN echo . /exawind/spack/share/spack/setup-env.sh >> /etc/bashrc \
- && echo spack load amr-wind >> /etc/bashrc \
- && echo spack load nalu-wind >> /etc/bashrc
 
 COPY numactl-libs-2.0.12-11.el8.ppc64le.rpm tcsh-6.20.00-13.el8.ppc64le.rpm /
 
@@ -79,5 +76,13 @@ RUN tar xzf MLNX_OFED_LINUX-4.9-2.2.4.0-rhel8.2-ppc64le.tgz \
  && cd MLNX_OFED_LINUX-4.9-2.2.4.0-rhel8.2-ppc64le \
  && ./mlnxofedinstall --user-space-only --without-fw-update -q \
  && rm -rf /MLNX_OFED_LINUX-4.9-2.2.4.0-rhel8.2-ppc64le
+
+RUN . /exawind/spack/share/spack/setup-env.sh \
+ && export SPACK_DISABLE_LOCAL_CONFIG=1 \
+ && spack repo add /exawind/spack/var/spack/repos/exawind
+
+RUN echo export SPACK_MANAGER_MACHINE=summit >> /etc/bashrc \
+ && echo export SPACK_DISABLE_LOCAL_CONFIG=1 >> /etc/bashrc \
+ && echo . /exawind/spack/share/spack/setup-env.sh >> /etc/bashrc
 
 WORKDIR /
