@@ -43,7 +43,7 @@ RUN mkdir -p /gpfs/alpine/proj-shared/gen010/exawind \
  && mkdir -p /gpfs/alpine/gen010 \
  && ln -s /gpfs/alpine/proj-shared/gen010 /gpfs/alpine/gen010/proj-shared
 
-COPY exawind-spack-2021-11-01-0802.tgz /gpfs/alpine/proj-shared/gen010/exawind/exawind.tgz
+COPY exawind-spack-2021-11-01-1431.tgz /gpfs/alpine/proj-shared/gen010/exawind/exawind.tgz
 
 WORKDIR /gpfs/alpine/proj-shared/gen010/exawind
 
@@ -81,7 +81,8 @@ RUN . /exawind/spack/share/spack/setup-env.sh \
  && export SPACK_DISABLE_LOCAL_CONFIG=1 \
  && spack repo add /exawind/spack/var/spack/repos/exawind
 
-RUN echo export SPACK_MANAGER_MACHINE=summit >> /etc/bashrc \
+RUN echo export SPACK_USER_CACHE_PATH=/tmp >> /etc/bashrc \
+ && echo export SPACK_MANAGER_MACHINE=summit >> /etc/bashrc \
  && echo export SPACK_DISABLE_LOCAL_CONFIG=1 >> /etc/bashrc \
  && echo . /exawind/spack/share/spack/setup-env.sh >> /etc/bashrc
 
