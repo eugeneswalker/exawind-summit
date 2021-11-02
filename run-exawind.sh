@@ -1,13 +1,15 @@
 #!/bin/bash
 
+BUILD_DATE=$(printf '%(%Y-%m-%d-%H%M)T' -1)
+
 _SIMG=ecpe4s-exawind-summit-2021-11-01.sif
 [[ ! -f "${_SIMG}" && -z ${SIMG+x} ]] && wget "https://cache.e4s.io/exawind/artifacts/${_SIMG}"
 SIMG=${SIMG:-$(pwd)/${_SIMG}}
 
 _RUNDIR=${MEMBERWORK}/gen010/exawind-run
-RUNDIR=${RUNDIR:-${_RUNDIR}}
+RUNDIR=${RUNDIR:-${_RUNDIR}}/${BUILD_DATE}
 [[ ! -d ${RUNDIR} ]] && mkdir -p ${RUNDIR}
-cp -r nalu-amr ${RUNDIR}/
+cp -r nalu-amr/* ${RUNDIR}
 
 module load gcc/9.3.0
 module load spectrum-mpi/10.4.0.3-20210112
@@ -23,12 +25,16 @@ CUDA_CONTAINER=/sw/summit/cuda/11.3.1
 RUNDIR_HOST=${RUNDIR}
 RUNDIR_CONTAINER=/rundir
 
-EXAWIND_CMD_GPU_GPU="spack load exawind+amr_wind_gpu+nalu_wind_gpu && exawind --awind 1 --nwind 1 exwsim.yaml"
-
-set -x
+EXAWIND_CMD_GPU_GPU=$(cat <<EOF
+spack load exawind +amr_wind_gpu +nalu_wind_gpu \
+ && exawind --awind 1 --nwind 1 exwsim.yaml
+EOF
+)
 
 export MPI_IGNORE_PBS=on
 export CUDA_LAUNCH_BLOCKING=1
+
+set -x
 
 jsrun \
  --nrs 2 \
@@ -56,12 +62,4 @@ jsrun \
     --bind ${MPI_HOST} \
     --bind ${CUDA_HOST} \
     --env LD_LIBRARY_PATH=${MPI_CONTAINER}/lib/pami_port \
-    ${SIMG} /bin/bash -c "cd ${RUNDIR_CONTAINER} && ${EXAWIND_CMD_GPU_GPU}"
-
-if [[ $? -eq 0 ]] ; then
-  (
-    cd ${RUNDIR_HOST}
-    mkdir gpu-gpu
-    mv plt* memusage.dat *.log overset gpu-gpu.txt gpu-gpu/
-  )
-fi
+    ${SIMG} /bin/bash -c "cd ${RUNDIR_CONTAINER} && ${EXAWIND_CMD_GPU_GPU} &> gpu-gpu.txt"
