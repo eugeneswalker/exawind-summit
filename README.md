@@ -1,10 +1,34 @@
 ## ExaWind Container for OLCF Summit
 
 **Table of Contents**
+0. Running the Coupled Execution Driver on OLCF Summit (GPU-GPU, NVIDIA V100)
 1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit (NVIDIA V100)
 2. Running the Single-node Nalu-Wind CPU Example on OLCF Summit
 3. Building the Docker image
 4. Building the Singularity image
+
+### 0. Running the Coupled Execution Driver on OLCF Summit (GPU-GPU)
+
+1. Clone this repo
+```
+[<user>@login4.summit ~] git clone https://github.com/eugeneswalker/exawind-summit
+[<user>@login4.summit ~] cd exawind-summit
+```
+
+2. Decide where you want output files to go. Choose a path on a filesystem writable from compute nodes
+```
+[<user>@login4.summit exawind-summit] export RUNDIR=$MEMBERWORK/gen010/exawind-run
+```
+
+3. Run the example
+
+* Interactive
+```
+[<user>@login4.summit exawind-summit] bsub -Is -P <PROJECT_ID>  -W 2:00 -nnodes 1 -alloc_flags gpudefault /bin/bash
+bash-4.4$ ./run-exawind.sh
+...
+```
+
 
 ### 1. Running the Dual-node Amr-Wind GPU Example on OLCF Summit
 
